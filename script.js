@@ -41,10 +41,10 @@ document.getElementById('fetchBtn').addEventListener('click', async function () 
         const toggle = document.getElementById('playlistToggle');
         if (playlistId) {
             toggle.disabled = false;
-            toggle.checked = true; // Auto check nếu phát hiện có list parameter
+            toggle.checked = false; // Mặc định luôn tắt, người dùng tự bật nếu muốn
         } else {
             toggle.checked = false;
-            toggle.disabled = true; // Không có list param thì không thể ép tải playlist
+            toggle.disabled = true;
         }
 
         // Ưu tiên hiển thị thông tin video nếu có, nếu không thì hiển thị playlist
@@ -138,17 +138,46 @@ function downloadMedia(format) {
 
 // Nút dán từ clipboard
 document.getElementById('pasteBtn').addEventListener('click', async function () {
-    try {
-        const text = await navigator.clipboard.readText();
-        const input = document.getElementById('urlInput');
-        input.value = text.trim();
-        input.focus();
-        // Đổi icon sang check tạm thời
-        const icon = this.querySelector('i');
+    const input = document.getElementById('urlInput');
+    const icon = this.querySelector('i');
+
+    const showSuccess = () => {
         icon.className = 'fa-solid fa-check text-emerald-400 text-base';
         setTimeout(() => { icon.className = 'fa-solid fa-clipboard text-base'; }, 1500);
-    } catch (err) {
-        // Fallback: trình duyệt không cho đọc clipboard tự động, focus vào ô để người dùng tự dán
-        document.getElementById('urlInput').focus();
+    };
+
+    // Cách 1: Clipboard API hiện đại (yêu cầu HTTPS + quyền)
+    if (navigator.clipboard && navigator.clipboard.readText) {
+        try {
+            const text = await navigator.clipboard.readText();
+            if (text.trim()) {
+                input.value = text.trim();
+                input.focus();
+                showSuccess();
+                return;
+            }
+        } catch (e) {
+            // Không có quyền đọc clipboard, fallback xuống bên dưới
+        }
     }
+
+    // Cách 2: Focus vào ô rồi trigger paste command
+    input.focus();
+    input.select();
+    try {
+        // execCommand hoạt động trên hầu hết trình duyệt cũ và GitHub Pages
+        const success = document.execCommand('paste');
+        if (success) {
+            showSuccess();
+            return;
+        }
+    } catch (e) {}
+
+    // Cách 3: Fallback cuối - đổi icon sang gợi ý nhấn Ctrl+V
+    icon.className = 'fa-solid fa-keyboard text-amber-400 text-base';
+    input.placeholder = 'Bây giờ nhấn Ctrl+V / Cmd+V để dán...';
+    setTimeout(() => {
+        icon.className = 'fa-solid fa-clipboard text-base';
+        input.placeholder = 'Dán link YouTube vào đây...';
+    }, 3000);
 });
