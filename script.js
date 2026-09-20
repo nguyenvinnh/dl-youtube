@@ -136,7 +136,19 @@ function downloadMedia(format) {
     });
 }
 
-// Tự động kiểm tra với link mặc định khi tải trang
-window.onload = function () {
-    document.getElementById('fetchBtn').click();
-};
+// Nút dán từ clipboard
+document.getElementById('pasteBtn').addEventListener('click', async function () {
+    try {
+        const text = await navigator.clipboard.readText();
+        const input = document.getElementById('urlInput');
+        input.value = text.trim();
+        input.focus();
+        // Đổi icon sang check tạm thời
+        const icon = this.querySelector('i');
+        icon.className = 'fa-solid fa-check text-emerald-400 text-base';
+        setTimeout(() => { icon.className = 'fa-solid fa-clipboard text-base'; }, 1500);
+    } catch (err) {
+        // Fallback: trình duyệt không cho đọc clipboard tự động, focus vào ô để người dùng tự dán
+        document.getElementById('urlInput').focus();
+    }
+});
