@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader & Inspector</title>
+    <title>Trợ lý Tải YouTube qua ytdlp.online</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 
@@ -29,28 +29,67 @@
     </script>
 </head>
 
-<body class="bg-slate-950 text-slate-100 h-full flex flex-col justify-between selection:bg-rose-500 selection:text-white">
+<body
+    class="bg-slate-950 text-slate-100 h-full flex flex-col justify-between selection:bg-rose-500 selection:text-white">
 
+    <!-- Header -->
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
         <div class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-600/30">
+                <div
+                    class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-600/30">
                     <i class="fa-brands fa-youtube text-white text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-tight">YouTube <span class="text-rose-500">Downloader</span></h1>
-                    <p class="text-xs text-slate-400">Trình xem thông tin và tùy chọn tải xuống video</p>
+                    <h1 class="font-bold text-lg tracking-tight">YouTube <span class="text-rose-500">Downloader
+                            Helper</span></h1>
+                    <p class="text-xs text-slate-400">Tải video YouTube đơn giản qua ytdlp.online</p>
                 </div>
             </div>
+            <a href="https://ytdlp.online/" target="_blank" rel="noopener noreferrer"
+                class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1.5 transition-colors bg-slate-800/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                <span>Trang gốc ytdlp.online</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
         </div>
     </header>
 
-    <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-10 flex flex-col items-center">
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-8 flex flex-col items-center">
+
+        <!-- Banner Giải thích mục đích (Ngắn gọn) -->
+        <div class="w-full bg-slate-900/80 border border-slate-800 rounded-2xl p-4 mb-4 shadow-lg">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300">
+                    Công cụ hỗ trợ tải video YouTube dựa trên <a href="https://ytdlp.online/" target="_blank"
+                        class="text-rose-400 underline font-medium hover:text-rose-300">ytdlp.online</a>, tự động tối ưu
+                    sẵn câu lệnh giúp bạn thao tác dễ dàng mà không cần phải tự nhập lệnh.
+                </p>
+            </div>
+        </div>
+
+        <!-- Lưu ý đăng nhập / đăng ký tài khoản (Nhấn mạnh miễn phí & độc lập) -->
+        <div class="w-full bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 mb-8 flex items-start gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-amber-400 text-base shrink-0 mt-0.5"></i>
+            <div class="text-xs sm:text-sm text-amber-200/90 leading-relaxed">
+                <strong class="font-semibold text-amber-400">Khuyên dùng:</strong>
+                Nên <a href="https://ytdlp.online/login" target="_blank"
+                    class="underline font-bold text-amber-300 hover:text-amber-200">Đăng nhập</a> hoặc <a
+                    href="https://ytdlp.online/register" target="_blank"
+                    class="underline font-bold text-amber-300 hover:text-amber-200">Đăng ký tài khoản</a> tại
+                ytdlp.online để tải video/audio không bị lỗi.
+                <span class="block mt-0.5 text-xs text-amber-300/80">(Tài khoản này hoàn toàn <strong>MIỄN PHÍ</strong> và <strong>KHÔNG LIÊN QUAN</strong> đến người phát triển website hỗ trợ này)</span>
+            </div>
+        </div>
 
         <!-- Hero Section -->
-        <div class="text-center max-w-lg mb-8">
+        <div class="text-center max-w-lg mb-6">
             <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">Trích xuất & Tải xuống YouTube</h2>
-            <p class="text-slate-400 text-sm">Dán đường dẫn video YouTube bên dưới và chọn định dạng tải xuống mong muốn.</p>
+            <p class="text-slate-400 text-sm">Dán đường dẫn video YouTube bên dưới để lấy thông tin và tùy chọn tải
+                xuống.</p>
         </div>
 
         <!-- Input Card -->
@@ -74,18 +113,19 @@
                     <span>Kiểm tra</span>
                 </button>
             </div>
-
-
         </div>
 
+        <!-- Loader -->
         <div id="loader" class="hidden flex-col items-center justify-center py-12 space-y-4">
             <div class="w-12 h-12 border-4 border-rose-600/20 border-t-rose-600 rounded-full animate-spin"></div>
             <p class="text-sm text-slate-400 font-medium animate-pulse">Đang lấy thông tin video...</p>
         </div>
 
         <!-- Error State Box -->
-        <div id="errorContainer" class="hidden w-full bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-center text-rose-400 text-sm mb-6">
-            <i class="fa-solid fa-triangle-exclamation mr-2"></i> <span id="errorText">Không thể tải thông tin. Vui lòng kiểm tra lại đường dẫn!</span>
+        <div id="errorContainer"
+            class="hidden w-full bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-center text-rose-400 text-sm mb-6">
+            <i class="fa-solid fa-triangle-exclamation mr-2"></i> <span id="errorText">Không thể tải thông tin. Vui lòng
+                kiểm tra lại đường dẫn!</span>
         </div>
 
         <!-- Result Container -->
@@ -93,16 +133,20 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl space-y-6">
                 <!-- Thông tin Video -->
                 <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <div class="w-full md:w-80 aspect-video bg-slate-950 rounded-xl overflow-hidden relative shadow-md shrink-0 border border-slate-800 flex items-center justify-center">
+                    <div
+                        class="w-full md:w-80 aspect-video bg-slate-950 rounded-xl overflow-hidden relative shadow-md shrink-0 border border-slate-800 flex items-center justify-center">
                         <img id="videoThumb" src="" alt="Thumbnail" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-grow space-y-3 text-center md:text-left">
-                        <div class="inline-flex items-center space-x-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-medium">
+                        <div
+                            class="inline-flex items-center space-x-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-medium">
                             <i class="fa-solid fa-circle-check"></i>
                             <span>Phân tích thành công</span>
                         </div>
-                        <h3 id="videoTitle" class="text-lg sm:text-xl font-bold text-slate-100 leading-snug">Đang cập nhật tiêu đề...</h3>
-                        <p id="videoChannel" class="text-sm text-slate-400 font-medium flex items-center justify-center md:justify-start gap-1.5">
+                        <h3 id="videoTitle" class="text-lg sm:text-xl font-bold text-slate-100 leading-snug">Đang cập
+                            nhật tiêu đề...</h3>
+                        <p id="videoChannel"
+                            class="text-sm text-slate-400 font-medium flex items-center justify-center md:justify-start gap-1.5">
                             <i class="fa-solid fa-user-circle text-rose-500"></i> <span>Đang cập nhật kênh...</span>
                         </p>
                     </div>
@@ -114,11 +158,13 @@
                         <h4 class="text-sm font-semibold text-slate-200">
                             <i class="fa-solid fa-download text-rose-500 mr-2"></i> Tùy chọn tải xuống
                         </h4>
-                        
+
                         <!-- Toggle Playlist -->
                         <div class="flex items-center gap-2 bg-slate-950 px-3 py-2 rounded-lg border border-slate-800">
-                            <input type="checkbox" id="playlistToggle" class="w-4 h-4 text-rose-600 bg-slate-900 border-slate-700 rounded focus:ring-rose-500 focus:ring-2 cursor-pointer">
-                            <label for="playlistToggle" class="text-sm font-medium text-slate-200 cursor-pointer select-none">
+                            <input type="checkbox" id="playlistToggle"
+                                class="w-4 h-4 text-rose-600 bg-slate-900 border-slate-700 rounded focus:ring-rose-500 focus:ring-2 cursor-pointer">
+                            <label for="playlistToggle"
+                                class="text-sm font-medium text-slate-200 cursor-pointer select-none">
                                 Ép tải toàn bộ Playlist
                             </label>
                         </div>
@@ -161,12 +207,12 @@
             <p class="text-sm">Chưa có thông tin nào. Hãy dán link YouTube và bấm "Kiểm tra".</p>
         </div>
 
-
-
     </main>
 
-    <footer class="border-t border-slate-800/80 bg-slate-900/30 text-center py-4 text-xs text-slate-500">
-        <p>Ứng dụng thuần HTML/JS xem thông tin và tùy chọn tải xuống video YouTube.</p>
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-900/30 text-center py-4 text-xs text-slate-500 space-y-1">
+        <p>Ứng dụng giao diện hỗ trợ tải xuống YouTube dựa trên hệ thống của <a href="https://ytdlp.online/"
+                target="_blank" class="text-slate-400 hover:underline">ytdlp.online</a>.</p>
     </footer>
 
     <!-- Custom Script -->
